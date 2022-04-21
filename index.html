@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link rel="stylesheet" href="theme.css" />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="app" v-cloak>
+      <div class="card">
+        <h1 :style="{fontSize: inputValue.length > 10 ? '1.5rem' : '2rem'}"> {{ title }} </h1>
+        <div class="form-control">
+          <input
+            type="text"
+            :placeholder="myHolder"
+            :value="inputValue"
+            @input="inputValue = $event.target.value"
+            @keypress.enter="addNewNote"
+          >
+        </div>
+        <button
+          class="btn"
+          @click="addNewNote"
+        >Добавить заметку</button>
+        <hr />
+        <ul class="list" v-if="notes.length">
+          <li class="list-item" v-for="(item, index) in notes">
+            {{ item }}
+            <button class="btn danger" @click="notes.splice(index, 1)">Удалить</button>
+          </li>
+          <hr />
+          <li>
+            <strong>Общее количество: {{ notes.length }} </strong> | Удвоенное: {{ doubleNotes }}
+          </li>
+        </ul>
+        <div v-else>
+          <h2>Заметок пока нет</h2>
+        </div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
